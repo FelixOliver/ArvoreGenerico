@@ -22,6 +22,87 @@ tipo ->
 
 */
 
+#define MAXCHAR 50
+char str[MAXCHAR];
+
+TAG * load_tree(TAG * tag){
+    FILE *fptr;
+    if ((fptr = fopen("exemplo-AG.txt","r")) == NULL){
+        printf("Error! opening file");
+        exit(1);
+    }
+    while(fgets(str,MAXCHAR,fptr) != NULL){
+        //token(str);
+        int i=0,j=0,v=0,k,d,*values;
+        char * name = (char *) malloc(sizeof(char));
+        values = (int *) malloc(sizeof(int));
+        char * tmp=(char *) malloc(sizeof(char));
+        while(str[i]!='/'){
+            j++;
+            tmp=realloc(tmp,(sizeof(char)*j));
+            tmp[i]=str[i];
+            i++;
+        }
+        k=atoi(tmp);  
+        //printf("%d ",k);
+        i++;
+        j=0;
+        tmp=(char *) malloc(sizeof(char));
+        while(str[i]!='/'){
+            j++;
+            tmp=realloc(tmp,(sizeof(char)*j));
+            tmp[j-1]=str[i];
+            i++;
+        }
+        d=atoi(tmp);
+        //printf("%d ",d);
+        i++;
+        j=0;
+        tmp=(char *) malloc(sizeof(char));
+        while(str[i]!=' '){
+            j++;
+            tmp=realloc(tmp,(sizeof(char)*j));
+            tmp[j-1]=str[i];
+            i++;
+        }
+        strcpy(name,tmp);
+        int s=strlen(name);
+        for(int l=0;l<s;l++)
+            printf(" %c",name[l]);
+       
+        //printf(" %s",name);
+        i++;
+        j=0;
+        tmp=(char *) malloc(sizeof(char));
+        while(str[i]!='\0'){
+            if(str[i]==' '){
+                values=realloc(values,(sizeof(int)*v+1));
+                values[v]=atoi(tmp);
+                j=0;
+                v++;        }
+            else{
+                j++;
+                tmp=realloc(tmp,(sizeof(char)*j));
+                tmp[j-1]=str[i];
+            }
+            i++;
+        }
+        
+        values=realloc(values,(sizeof(int)*v+1));
+        values[v]=atoi(tmp);
+        v++;
+       // for(i=0;i<v;i++)
+        //    printf(" %d",values[i]);
+        //printf("\n");
+        tag=insere(tag,k,d,name,values);
+
+        free(tmp);
+        free(name);
+    }
+    fclose(fptr);
+
+    return tag;
+}
 int main(){
     //char * ex = (char *)malloc(sizeof(char)*10);
     //ex = "23";
@@ -32,7 +113,7 @@ int main(){
     //TINF * th = ini_info();
     //th = cria_info(th, 2, ss);
     //printf("a:%f , t:%d , l:%d \n", th->area, th->tipo, th->dados[0]);
-    int uno[2] = {3,2};
+    /*int uno[2] = {3,2};
     int dos[2] = {3,3};
     int tres[3] = {2,3,4};
     int cuatro[1] = {4};
@@ -42,12 +123,12 @@ int main(){
     int ocho[2] = {2};
     int nueve[1] = {1};
     int diez[2] = {1,2};
-
+*/
     TAG * prin = NULL;
     //prin = ini_ag();
     //prin->cod = 2;
     //printf("%d", !prin);
-    prin = insere(prin,1,0,"TRI",uno);
+    /*prin = insere(prin,1,0,"TRI",uno);
     printf("--------  \n");
     prin = insere(prin,2,1,"RET",dos);
     //printf("2- %d \n",prin->cod);
@@ -61,7 +142,8 @@ int main(){
     prin = insere(prin,8,5,"CIR",ocho);
     prin = insere(prin,9,4,"QUA",nueve);
     prin = insere(prin,10,1,"TRI",diez);
-
+*/
+    prin=load_tree(prin);
     printf("hijo de root -> %d \n", prin->filho->cod);
     //printf("%d \n",prin->prox_irmao->cod);
     printf("-----------PRINT ARVORE-------------\n");
