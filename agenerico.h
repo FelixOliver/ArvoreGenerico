@@ -24,7 +24,7 @@ typedef struct info
 TINF * ini_info()
 {
     TINF * novo = (TINF *)malloc(sizeof(TINF));
-    novo->dados = (int *)malloc(sizeof(int)*3);
+    novo->dados = NULL;
     novo->tipo = (char *)malloc(sizeof(char)*3);
     
     return novo;
@@ -33,7 +33,8 @@ TINF * ini_info()
 TINF * cria_info(TINF * inf,char * tipo, int * dados)
 {
     //TINF * inf = (TINF *)malloc(sizeof(TINF));
-    inf->tipo = tipo;
+    strcpy(inf->tipo , tipo);
+
     inf->dados = dados;    
 
    if(strcmp(tipo, "CIR") == 0){
