@@ -10,7 +10,7 @@ tipo ->
 */
 typedef struct info
 {
-    int tipo;
+    char * tipo;
     int * dados;
     int size_d;
     float area;
@@ -24,42 +24,40 @@ typedef struct info
 TINF * ini_info()
 {
     TINF * novo = (TINF *)malloc(sizeof(TINF));
+    novo->dados = (int *)malloc(sizeof(int)*3);
+    novo->tipo = (char *)malloc(sizeof(char)*3);
     
     return novo;
 }
 
-TINF * cria_info(TINF * inf,int tipo, int * dados)
+TINF * cria_info(TINF * inf,char * tipo, int * dados)
 {
     //TINF * inf = (TINF *)malloc(sizeof(TINF));
     inf->tipo = tipo;
-    inf->dados = dados;
-    switch (tipo)
-    {
-    case 1:
+    inf->dados = dados;    
+
+   if(strcmp(tipo, "CIR") == 0){
            inf->size_d = 1;
            inf->area =  M_PI * powf(dados[0], 2.0 );      
-        break;
-    case 2:
+   }
+    if(strcmp(tipo, "QUA") == 0){
            inf->size_d = 1;
            inf->area = dados[0] * dados[0];
-        break;
-    case 3:
+    }
+    if(strcmp(tipo, "RET") == 0){
             inf->size_d = 2;
             inf->area = dados[0] * dados[1];
-        break;
-    case 4:
+    }
+    if(strcmp(tipo, "TRA") == 0){
             inf->size_d = 3;
             inf->area = (dados[1]+dados[0]) * dados[2] / 2.0;
-        break;
-    case 5:
+    }
+    if(strcmp(tipo, "TRI") == 0){
             inf->size_d = 2;
             inf->area = dados[0] * dados[1];
-        break;    
-    default:
-        break;
     }
-    return inf;
 
+    return inf;
 }
 
 
@@ -84,7 +82,7 @@ TAG * ini_ag()
     return novo;
 }
 
-TAG * insere(TAG * ag, int cod, int cod_pai, int tipo, int * dados){
+TAG * insere(TAG * ag, int cod, int cod_pai, char * tipo, int * dados){
     if(ag == NULL)
     {    
         //printf("entro if !ag \n");   
@@ -152,7 +150,7 @@ void print_ag(TAG * a)
     }
 
     print_ag(a->filho);
-    printf("NODO %d \n",a->cod);
+    printf("NODO %d ::: tipo = %s , area: %f \n",a->cod, a->info->tipo, a->info->area);
     if(a->filho != NULL)
         printf("nodo %d ->hijo-> %d\n",a->cod ,a->filho->cod);
     print_ag(a->prox_irmao);

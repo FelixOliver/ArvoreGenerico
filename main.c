@@ -27,10 +27,10 @@ int main(){
     //ex = "23";
     //int *p;
     //p = pt_dados("23 43 1",3);
-    int * ss = (int *)malloc(sizeof(int));
-    ss[0] = 3;
-    TINF * th = ini_info();
-    th = cria_info(th, 2, ss);
+    //int * ss = (int *)malloc(sizeof(int));
+    //ss[0] = 3;
+    //TINF * th = ini_info();
+    //th = cria_info(th, 2, ss);
     //printf("a:%f , t:%d , l:%d \n", th->area, th->tipo, th->dados[0]);
     int uno[2] = {3,2};
     int dos[2] = {3,3};
@@ -47,20 +47,20 @@ int main(){
     //prin = ini_ag();
     //prin->cod = 2;
     //printf("%d", !prin);
-    prin = insere(prin,1,0,5,uno);
+    prin = insere(prin,1,0,"TRI",uno);
     printf("--------  \n");
-    prin = insere(prin,2,1,3,dos);
+    prin = insere(prin,2,1,"RET",dos);
     //printf("2- %d \n",prin->cod);
     printf("--------  \n");
     
-    prin = insere(prin,3,1,4,tres);
-    prin = insere(prin,4,1,1,cuatro);
-    prin = insere(prin,5,4,2,cinco);
-    prin = insere(prin,6,2,3,seis);
-    prin = insere(prin,7,5,4,siete);
-    prin = insere(prin,8,5,1,ocho);
-    prin = insere(prin,9,4,2,nueve);
-    prin = insere(prin,10,1,5,diez);
+    prin = insere(prin,3,1,"TRA",tres);
+    prin = insere(prin,4,1,"CIR",cuatro);
+    prin = insere(prin,5,4,"QUA",cinco);
+    prin = insere(prin,6,2,"RET",seis);
+    prin = insere(prin,7,5,"TRA",siete);
+    prin = insere(prin,8,5,"CIR",ocho);
+    prin = insere(prin,9,4,"QUA",nueve);
+    prin = insere(prin,10,1,"TRI",diez);
 
     printf("hijo de root -> %d \n", prin->filho->cod);
     //printf("%d \n",prin->prox_irmao->cod);
