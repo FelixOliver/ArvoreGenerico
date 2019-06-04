@@ -67,9 +67,7 @@ TAG * load_tree(TAG * tag){
         }
         strcpy(name,tmp);
         int s=strlen(name);
-        for(int l=0;l<s;l++)
-            printf(" %c",name[l]);
-       
+               
         //printf(" %s",name);
         i++;
         j=0;
@@ -103,6 +101,8 @@ TAG * load_tree(TAG * tag){
 
     return tag;
 }
+
+
 int main(){
     //char * ex = (char *)malloc(sizeof(char)*10);
     //ex = "23";
@@ -144,10 +144,17 @@ int main(){
     prin = insere(prin,10,1,"TRI",diez);
 */
     prin=load_tree(prin);
+    
     printf("hijo de root -> %d \n", prin->filho->cod);
     //printf("%d \n",prin->prox_irmao->cod);
     printf("-----------PRINT ARVORE-------------\n");
     print_ag(prin);
-
+    ///////////////////
+    printf("--------------BUSCAR----------------------\n");
+    printf("exemplo buscar 6 e imprimir: \n");
+    TAG * aux = buscar_pelo_codigo(prin, 6);
+    print_figurinha(aux);
+    
     return 0;
 }
+
