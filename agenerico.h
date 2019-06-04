@@ -9,12 +9,11 @@ tipo ->
 
 
 (a) buscar figuras geométricas, por meio de um código único; < 
-(b) imprimir informações relevantes, tanto da árvore, quanto das figuras, incluindo-se sua área; 
+(b) imprimir informações relevantes, tanto da árvore, quanto das figuras, incluindo-se sua área; < 
 (c) inserir novas figuras; < 
 (d) retirar figuras, passando seus descendentes para outro pai; 
 (e) destruir a árvore; 
-(f) alterar as dimensões de figuras;
-
+(f) alterar as dimensões de figuras; <
 */
 typedef struct info
 {
@@ -196,11 +195,15 @@ void print_ag(TAG * a)
 }
 
 TAG * buscar_pelo_codigo(TAG * arv, int cod){
-    if(arv == NULL)return arv;
-    if(arv->cod == cod)
-        return arv;
-    return buscar_pelo_codigo(arv->filho, cod);
-    return buscar_pelo_codigo(arv->prox_irmao, cod);        
+    TAG * rpta;
+
+    if(arv == NULL) return NULL;
+    if(arv->cod == cod) return arv;
+    
+    rpta =  buscar_pelo_codigo(arv->filho, cod);
+    if(rpta!=NULL) return rpta;
+    rpta = buscar_pelo_codigo(arv->prox_irmao, cod);
+    if(rpta!=NULL) return rpta;   
 }
 
 //return pai *
@@ -225,3 +228,100 @@ TAG * get_pai(TAG * arv, TAG * filho)
     return buscar_pelo_codigo(arv->prox_irmao, cod);  
     
 }*/
+
+//(f) alterar as dimensões de figuras;
+
+void alterar_dimensoes(TAG * no, int * dados)
+{
+    
+    if (dados == NULL || !dados) return;
+    int i;
+    for ( i = 0; i < no->info->size_d; i++)
+    {
+        if(!dados[i]) return;
+    }
+    for (i = 0; i < no->info->size_d; i++)
+        no->info->dados[i] = dados[i];
+    return;    
+}
+
+void menu_alterar_dimensoes(TAG * arv)
+{
+    int cod;
+    printf("(f)Alterar dimensoes \n Escriba codigo do figurinha: ");
+    scanf("%d", &cod);
+    // buscar no
+    printf("cod: %d\n",cod);
+    TAG * aux = buscar_pelo_codigo(arv, cod);
+
+    printf("prueba %d \n", aux->cod);
+    print_figurinha(aux);
+
+    int * dados;
+    if(strcmp(aux->info->tipo, "CIR") == 0){
+        printf("seu figurinha é %s \n", aux->info->tipo);
+        printf("escriva novas dimensoes \n");
+        dados = (int *) malloc(sizeof(int) * aux->info->size_d);
+        
+        printf("radio: ");
+        scanf("%d", &dados[0]);
+
+        aux->info->area = M_PI * powf(dados[0], 2.0);
+    }
+    if(strcmp(aux->info->tipo, "QUA") == 0){
+        printf("seu figurinha é %s \n", aux->info->tipo);
+        printf("escriva novas dimensoes \n");
+        dados = (int *) malloc(sizeof(int) * aux->info->size_d);
+        
+        printf("lado: \n");
+        scanf("%d", &dados[0]);
+
+        aux->info->area = powf(dados[0], 2.0);           
+    }
+    if(strcmp(aux->info->tipo, "RET") == 0){
+        printf("seu figurinha é %s \n", aux->info->tipo);
+        printf("escriva novas dimensoes \n");
+        dados = (int *) malloc(sizeof(int) * aux->info->size_d);
+        
+        printf("base: ");
+        scanf("%d", &dados[0]); 
+        printf("altura: ");
+        scanf("%d", &dados[1]);
+
+        aux->info->area = dados[0] * dados[1];
+    }
+    if(strcmp(aux->info->tipo, "TRA") == 0){
+        printf("seu figurinha é %s \n", aux->info->tipo);
+        printf("escriva novas dimensoes \n");
+        dados = (int *) malloc(sizeof(int) * aux->info->size_d);
+        
+        printf("base menor: ");
+        scanf("%d", &dados[0]);
+        printf("base mayor: ");
+        scanf("%d", &dados[1]);
+        printf("altura: ");
+        scanf("%d", &dados[2]);
+
+        aux->info->area = (dados[1] + dados[0]) * dados[2] / 2.0 ;
+        
+    }
+    if(strcmp(aux->info->tipo, "TRI") == 0){
+        printf("seu figurinha é %s \n", aux->info->tipo);
+        printf("escriva novas dimensoes \n");
+        dados = (int *) malloc(sizeof(int) * aux->info->size_d);
+        
+        printf("base: ");
+        scanf("%d", &dados[0]); 
+        printf("altura: ");
+        scanf("%d", &dados[1]);
+
+        aux->info->area = dados[0] * dados[1];
+    }
+    alterar_dimensoes(aux, dados);
+
+    print_figurinha(aux);
+    return;
+}
+
+////////////////
+

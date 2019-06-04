@@ -152,8 +152,12 @@ int main(){
     ///////////////////
     printf("--------------BUSCAR----------------------\n");
     printf("exemplo buscar 6 e imprimir: \n");
-    TAG * aux = buscar_pelo_codigo(prin, 6);
+    TAG * aux = buscar_pelo_codigo(prin, 10);
     print_figurinha(aux);
+    printf("--------------ALTERAR DIMENSOES----------------------\n");
+    //print_figurinha(prin);
+    
+    menu_alterar_dimensoes(prin);
     
     return 0;
 }
