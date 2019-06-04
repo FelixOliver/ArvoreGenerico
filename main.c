@@ -157,8 +157,11 @@ int main(){
     printf("--------------ALTERAR DIMENSOES----------------------\n");
     //print_figurinha(prin);
     
-    menu_alterar_dimensoes(prin);
-    
+    //menu_alterar_dimensoes(prin);
+    printf("--------------RETIRAR NO----------------------\n");
+    TAG * pai = buscar_pelo_codigo(prin, 10);
+    prin = retirar_figura(prin, 2, pai);
+    print_ag(prin);
     return 0;
 }
 

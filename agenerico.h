@@ -12,7 +12,7 @@ tipo ->
 (b) imprimir informações relevantes, tanto da árvore, quanto das figuras, incluindo-se sua área; < 
 (c) inserir novas figuras; < 
 (d) retirar figuras, passando seus descendentes para outro pai; 
-(e) destruir a árvore; 
+(e) destruir a árvore; ~
 (f) alterar as dimensões de figuras; <
 */
 typedef struct info
@@ -203,7 +203,9 @@ TAG * buscar_pelo_codigo(TAG * arv, int cod){
     rpta =  buscar_pelo_codigo(arv->filho, cod);
     if(rpta!=NULL) return rpta;
     rpta = buscar_pelo_codigo(arv->prox_irmao, cod);
-    if(rpta!=NULL) return rpta;   
+    if(rpta!=NULL) return rpta;
+
+    return NULL;
 }
 
 //return pai *
@@ -215,19 +217,6 @@ TAG * get_pai(TAG * arv, TAG * filho)
 
 }
 
-// retirar figura, passando seus decentes para outro pai, 1 si retiro, 0 no retiro
-/*int retirar_figura(TAG * arv,int cod, int pai)
-{
-    // root nose puede retirar, tiene q ter filho, 
-    //if(arv == NULL || arv->filho == NULL||arv->cod == cod ) return 0;
-    //TAG * aux = buscar_pelo_codigo(arv, cod);
-    if(arv == NULL)return arv;
-    if(arv->cod == cod)
-        return arv;
-    return buscar_pelo_codigo(arv->filho, cod);
-    return buscar_pelo_codigo(arv->prox_irmao, cod);  
-    
-}*/
 
 //(f) alterar as dimensões de figuras;
 
@@ -323,5 +312,69 @@ void menu_alterar_dimensoes(TAG * arv)
     return;
 }
 
+///////////////////
+
+//(d) retirar figuras, passando seus descendentes para outro pai;
+
+// retirar figura, passando seus decentes para outro pai, 1 si retiro, 0 no retiro
+
+
+TAG * retirar_figura(TAG * arv,int cod, TAG * pai)
+{ 
+    TAG * rpta;
+
+    if(arv == NULL) return NULL;
+    //if(arv->cod == cod) return arv;
+    
+    rpta = retirar_figura(arv->filho, cod, pai);
+    
+    if(rpta!= NULL && rpta->cod == cod)
+    {   // cambiar hijo de pai, é o irmao
+        TAG * temp, * aux; 
+        temp = arv->filho;
+        arv->filho = rpta->prox_irmao;
+
+        // trocar do pai
+        //aux = buscar_pelo_codigo(pai);//buscar novo pai
+        if(pai->filho != NULL)
+            pai->filho = temp;
+        else if (pai->filho){
+            aux = pai->filho;
+            while (aux->prox_irmao != NULL )
+                aux = aux->prox_irmao;
+            aux->prox_irmao = temp;
+        }
+        
+        
+    } //return rpta;
+    rpta = retirar_figura(arv->prox_irmao, cod, pai);
+    
+    if(rpta!= NULL && rpta->cod == cod) //return rpta;
+    {// cambiar info
+        TAG * temp, * aux;
+        temp = arv->prox_irmao;
+        arv->prox_irmao = rpta->prox_irmao;
+        // trocar do pai
+        //aux = buscar_pelo_codigo(pai);//buscar novo pai
+        if(pai->filho != NULL)
+            pai->filho = temp;
+        else if (pai->filho){
+            aux = pai->filho;
+            while (aux->prox_irmao != NULL )
+                aux = aux->prox_irmao;
+            aux->prox_irmao = temp;
+        }
+    }
+    return arv;
+}
+
 ////////////////
 
+//(e) destruir a árvore;
+
+/*
+void destruir_arvore(TAG * arv)
+{
+    if(arv == NULL) return;
+
+}*/
