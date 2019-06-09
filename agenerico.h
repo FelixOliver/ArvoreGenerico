@@ -11,8 +11,8 @@ tipo ->
 (a) buscar figuras geométricas, por meio de um código único; < 
 (b) imprimir informações relevantes, tanto da árvore, quanto das figuras, incluindo-se sua área; < 
 (c) inserir novas figuras; < 
-(d) retirar figuras, passando seus descendentes para outro pai; 
-(e) destruir a árvore; ~
+(d) retirar figuras, passando seus descendentes para outro pai; <
+(e) destruir a árvore; <
 (f) alterar as dimensões de figuras; <
 */
 typedef struct info
@@ -330,19 +330,36 @@ TAG * retirar_figura(TAG * arv,int cod, TAG * pai)
     
     if(rpta!= NULL && rpta->cod == cod)
     {   // cambiar hijo de pai, é o irmao
+        
+        //print_figurinha(rpta);
+        //print_figurinha(arv->filho);
+        
         TAG * temp, * aux; 
-        temp = arv->filho;
+        temp = rpta;
         arv->filho = rpta->prox_irmao;
-
+        
         // trocar do pai
         //aux = buscar_pelo_codigo(pai);//buscar novo pai
+        
+        printf("primer if\n");
+        print_figurinha(pai);
+        
         if(pai->filho != NULL)
-            pai->filho = temp;
-        else if (pai->filho){
+        {   
+            printf("primer if 1\n");
             aux = pai->filho;
-            while (aux->prox_irmao != NULL )
+            while (aux->prox_irmao != NULL ){
                 aux = aux->prox_irmao;
-            aux->prox_irmao = temp;
+            }
+            aux->prox_irmao = temp->filho;
+            // liberar temp
+            free(temp);
+        }else if (pai->filho == NULL){
+            printf("primer if 2\n");
+            pai->filho = temp->filho;
+            print_figurinha(pai->filho);
+            // liberar temp
+            free(temp);
         }
         
         
@@ -352,18 +369,32 @@ TAG * retirar_figura(TAG * arv,int cod, TAG * pai)
     if(rpta!= NULL && rpta->cod == cod) //return rpta;
     {// cambiar info
         TAG * temp, * aux;
-        temp = arv->prox_irmao;
+        temp = rpta;
         arv->prox_irmao = rpta->prox_irmao;
+
         // trocar do pai
         //aux = buscar_pelo_codigo(pai);//buscar novo pai
-        if(pai->filho != NULL)
-            pai->filho = temp;
-        else if (pai->filho){
+        printf("segundo if\n");
+        print_figurinha(pai);
+        if(pai->filho != NULL){
+            printf("segundo if 1\n");
             aux = pai->filho;
-            while (aux->prox_irmao != NULL )
+            while (aux->prox_irmao != NULL ){
                 aux = aux->prox_irmao;
-            aux->prox_irmao = temp;
+            }
+            aux->prox_irmao = temp->prox_irmao;
+            // liberar temp
+            free(temp);
+
+        }else if (pai->filho == NULL){
+            printf("segundo if 1\n");
+
+            pai->filho = temp->prox_irmao;
+            print_figurinha(pai->filho);
+            // liberar temp
+            free(temp);
         }
+
     }
     return arv;
 }
@@ -372,9 +403,21 @@ TAG * retirar_figura(TAG * arv,int cod, TAG * pai)
 
 //(e) destruir a árvore;
 
-/*
-void destruir_arvore(TAG * arv)
+void destruir_ag(TAG * a)
 {
-    if(arv == NULL) return;
+    if(a == NULL)
+    {
+        return;
+    }
 
-}*/
+    destruir_ag(a->filho);
+    //print_figurinha(a);// imprimir dado do figurinha
+    //if(a->filho != NULL)
+    //    printf("nodo %d ->hijo-> %d\n",a->cod ,a->filho->cod);
+    destruir_ag(a->prox_irmao);
+    print_figurinha(a);
+    free(a);
+    //if(a->prox_irmao != NULL)
+     //   printf("nodo %d ->irmao-> %d\n",a->cod ,a->prox_irmao->cod);
+    return;
+}

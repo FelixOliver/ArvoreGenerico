@@ -148,7 +148,7 @@ int main(){
     printf("hijo de root -> %d \n", prin->filho->cod);
     //printf("%d \n",prin->prox_irmao->cod);
     printf("-----------PRINT ARVORE-------------\n");
-    print_ag(prin);
+    //print_ag(prin);
     ///////////////////
     printf("--------------BUSCAR----------------------\n");
     printf("exemplo buscar 6 e imprimir: \n");
@@ -160,8 +160,20 @@ int main(){
     //menu_alterar_dimensoes(prin);
     printf("--------------RETIRAR NO----------------------\n");
     TAG * pai = buscar_pelo_codigo(prin, 10);
-    prin = retirar_figura(prin, 2, pai);
+    prin = retirar_figura(prin, 5, pai);
+    printf("--------------RETIRAR NO----------------------\n");
     print_ag(prin);
+     /*
+     print_figurinha(prin);
+     print_figurinha(prin->filho);
+     print_figurinha(prin->filho->prox_irmao);
+     print_figurinha(prin->filho->prox_irmao->prox_irmao);
+     print_figurinha(prin->filho->prox_irmao->prox_irmao->filho);
+    */
+    printf("--------------REMOVOR NO----------------------\n");
+    destruir_ag(prin);
+    //print_figurinha(prin);
+
     return 0;
 }
 
