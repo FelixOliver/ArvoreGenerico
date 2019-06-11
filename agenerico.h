@@ -15,6 +15,10 @@ tipo ->
 (e) destruir a árvore; <
 (f) alterar as dimensões de figuras; <
 */
+
+#define MAXCHAR 50
+char str[MAXCHAR];
+
 typedef struct info
 {
     char * tipo;
@@ -151,6 +155,83 @@ TAG * insere(TAG * ag, int cod, int cod_pai, char * tipo, int * dados){
 }
 
 
+TAG * load_tree(TAG * tag, char * nfile){
+    FILE *fptr;
+    if ((fptr = fopen(nfile ,"r")) == NULL){
+        printf("Error! opening file \n");
+        exit(1);
+    }
+    while(fgets(str,MAXCHAR,fptr) != NULL){
+        //token(str);
+        int i=0,j=0,v=0,k,d,*values;
+        char * name = (char *) malloc(sizeof(char));
+        values = (int *) malloc(sizeof(int));
+        char * tmp=(char *) malloc(sizeof(char));
+        while(str[i]!='/'){
+            j++;
+            tmp=realloc(tmp,(sizeof(char)*j));
+            tmp[i]=str[i];
+            i++;
+        }
+        k=atoi(tmp);  
+        //printf("%d ",k);
+        i++;
+        j=0;
+        tmp=(char *) malloc(sizeof(char));
+        while(str[i]!='/'){
+            j++;
+            tmp=realloc(tmp,(sizeof(char)*j));
+            tmp[j-1]=str[i];
+            i++;
+        }
+        d=atoi(tmp);
+        //printf("%d ",d);
+        i++;
+        j=0;
+        tmp=(char *) malloc(sizeof(char));
+        while(str[i]!=' '){
+            j++;
+            tmp=realloc(tmp,(sizeof(char)*j));
+            tmp[j-1]=str[i];
+            i++;
+        }
+        strcpy(name,tmp);
+        int s=strlen(name);
+               
+        //printf(" %s",name);
+        i++;
+        j=0;
+        tmp=(char *) malloc(sizeof(char));
+        while(str[i]!='\0'){
+            if(str[i]==' '){
+                values=realloc(values,(sizeof(int)*v+1));
+                values[v]=atoi(tmp);
+                j=0;
+                v++;        }
+            else{
+                j++;
+                tmp=realloc(tmp,(sizeof(char)*j));
+                tmp[j-1]=str[i];
+            }
+            i++;
+        }
+        
+        values=realloc(values,(sizeof(int)*v+1));
+        values[v]=atoi(tmp);
+        v++;
+       // for(i=0;i<v;i++)
+        //    printf(" %d",values[i]);
+        //printf("\n");
+        tag=insere(tag,k,d,name,values);
+
+        free(tmp);
+        free(name);
+    }
+    fclose(fptr);
+
+    return tag;
+}
+
 void print_figurinha(TAG * no)
 {
     printf("-----------------------------------------------------------------------------\n");
@@ -241,6 +322,7 @@ void menu_alterar_dimensoes(TAG * arv)
     scanf("%d", &cod);
     // buscar no
     printf("cod: %d\n",cod);
+    
     TAG * aux = buscar_pelo_codigo(arv, cod);
 
     printf("prueba %d \n", aux->cod);
@@ -403,21 +485,15 @@ TAG * retirar_figura(TAG * arv,int cod, TAG * pai)
 
 //(e) destruir a árvore;
 
-void destruir_ag(TAG * a)
+void destruir_ag(TAG * no)
 {
-    if(a == NULL)
-    {
-        return;
-    }
-
-    destruir_ag(a->filho);
-    //print_figurinha(a);// imprimir dado do figurinha
-    //if(a->filho != NULL)
-    //    printf("nodo %d ->hijo-> %d\n",a->cod ,a->filho->cod);
-    destruir_ag(a->prox_irmao);
-    print_figurinha(a);
-    free(a);
-    //if(a->prox_irmao != NULL)
-     //   printf("nodo %d ->irmao-> %d\n",a->cod ,a->prox_irmao->cod);
+    if(no != NULL){    
+        destruir_ag(no->filho);
+        destruir_ag(no->prox_irmao);
+        
+        print_figurinha(no);
+        
+        free(no);
+    }    
     return;
 }
