@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "agenerico.h"
+#include "arvores.h"
 /*
 (a) buscar figuras geométricas, por meio de um código único; < 
 (b) imprimir informações relevantes, tanto da árvore, quanto das figuras, incluindo-se sua área; < 
@@ -301,9 +301,11 @@ int main (int argc, char *argv[] ){
             break;
         case 7:
                 // to -> abb
+                create_and_print_avl(arv);
             break;
         case 8:
                 // to -> aB
+                create_and_print_b(arv);
             break;
         case -1:
             destruir_ag(arv);
