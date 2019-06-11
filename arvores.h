@@ -1,5 +1,5 @@
 #include "agenerico.h"
-
+int t = 2;
 /***********ARBORE BB -> AVL********************************/
 
 typedef struct no{
@@ -233,7 +233,7 @@ static int min( int l, int r){
 
 /***********ARBORE B********************************/
 
-const int t = 2;
+
 
 typedef struct echave{
     int chave;
@@ -754,9 +754,16 @@ TAB* create_b(TAG * ag){
     //TAB * arvore = Inicializa();
     //arvore = Insere(arvore, num, t);
 }
-
+void set_ordem(int x){ t=x;}
 void create_and_print_b(TAG * ag){
+    int x;
     
+    while(1){
+      printf("Ingrese orden t de arvore (2<=t<=4) :\n");
+      scanf("%i",&x);
+      if((x>=2)&&(x<=4))  break;
+    }
+    set_ordem(x);
     if(ag == NULL)
     {
         printf("Arvore Generico nao tem dados!!!\n");
@@ -771,9 +778,114 @@ void create_and_print_b(TAG * ag){
         Imprime(arvore,0);
         
         print_dot_B(arvore);
-        //libera(arvore);
+        Libera(arvore);
         printf("Arvore B Liberado!!!\n");
 
 
     }
+}
+
+void generate_dot_ag(TAG * ag){
+        //struct no * arvore=NULL;
+    FILE *fp;
+    fp = fopen("agenerico.dot", "w");
+
+    fputs("digraph G {\n", fp);
+    fputs("rankdir=TB;\n",fp);
+    fputs("node [shape=record];\n",fp);
+    
+    fprintf(fp,"%s","m");
+    fprintf(fp, "%p", ag);
+    fprintf(fp,"%s", "[label=\"{<k> Key: ");
+    fprintf(fp,"%d|{<t>tipo: ", ag->cod );
+    fprintf(fp,"%s", ag->info->tipo);
+    fprintf(fp,"%s", "|dados:");
+    for(int i=0;i<ag->info->size_d;i++) fprintf(fp," %d",ag->info->dados[i]);
+    fprintf(fp,"|area: %f", ag->info->area);
+    fputs("}|{<f> filho|<i>irmao}}\"];\n",fp);
+    
+   
+
+    TP * my_pilha=cria();
+    //printf("pilha_vazia, %d \n",vazia(my_pilha));
+    push(my_pilha,ag);
+    
+    while(!vazia(my_pilha)){
+        //printf("pilha_vazia, %d \n",!vazia(my_pilha));
+        TAG *t=pop(my_pilha),*p,*q;
+        
+        p=t;
+        //arvore=insere_avl(t->cod,arvore,t->info);
+        
+        if(t->filho){
+
+            t=t->filho;
+            fprintf(fp,"%s","m");
+            fprintf(fp, "%p", t);
+            fprintf(fp,"%s", "[label=\"{<k> chave: ");
+            fprintf(fp,"%d|{<t>tipo: ", t->cod );
+            fprintf(fp,"%s", t->info->tipo);
+            fprintf(fp,"%s", "|dados:");
+            for(int i=0;i<t->info->size_d;i++) fprintf(fp," %d",t->info->dados[i]);
+            fprintf(fp,"|area: %f", t->info->area);
+            //fputs("}|{<f> filho}}\"];\n",fp);
+            fputs("}}\"];\n",fp);
+            
+
+            fprintf(fp,"%s","m");
+            fprintf(fp, "%p", p);
+            fprintf(fp,"%s"," -> ");
+            fprintf(fp,"%s","m");
+            fprintf(fp, "%p", t);
+            fprintf(fp,":k%s","\n");
+            
+            
+
+            while(t){
+                push(my_pilha,t);
+                q=t;
+                t=t->prox_irmao;
+
+                if(t!=NULL){
+                    //fprintf(fp,"%s","{ rank=same ");
+
+                    fprintf(fp,"%s","m");
+                    fprintf(fp, "%p", t);
+                    fprintf(fp,"%s", "[label=\"{<k> chave: ");
+                    fprintf(fp,"%d|{<t>tipo: ", t->cod );
+                    fprintf(fp,"%s", t->info->tipo);
+                    fprintf(fp,"%s", "|dados:");
+                    for(int i=0;i<t->info->size_d;i++) fprintf(fp," %d",t->info->dados[i]);
+                    fprintf(fp,"|area: %f", t->info->area);
+                    fputs("}}\"];\n",fp);
+
+
+                    fprintf(fp,"%s","m");
+                    fprintf(fp, "%p", p);
+                    fprintf(fp,"%s"," -> ");
+                    //fprintf(fp,"%s"," -> ");
+                    fprintf(fp,"%s","m");
+                    fprintf(fp, "%p", t);
+                    //fprintf(fp,";%s","\n");
+                    fprintf(fp,":k[style=dashed, color=grey];%s","\n");
+
+/*
+                    fprintf(fp,"%s","m");
+                    fprintf(fp, "%p", q);
+                    fprintf(fp,":i%s"," -> ");
+                    //fprintf(fp,"%s"," -> ");
+                    fprintf(fp,"%s","m");
+                    fprintf(fp, "%p", t);
+                    //fprintf(fp,";%s","\n");
+                    fprintf(fp,":k;%s","\n");
+
+*/
+                }
+            }
+        }
+    }
+    fprintf(fp,"%s","}");
+    fclose(fp);
+    system(" dot -Tpdf -O agenerico.dot");
+    system("evince agenerico.dot.pdf");
 }

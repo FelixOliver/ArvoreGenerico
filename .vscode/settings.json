@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "arvores.h": "c"
+        "arvores.h": "c",
+        "agenerico.h": "c"
     }
 }

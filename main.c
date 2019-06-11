@@ -26,6 +26,7 @@ void b_imprimir(TAG * arv)
     printf(">-1------------------------------ImprimirArvore----------------------------------------< \n");
     print_ag(arv);
     // falta imprimir con DOT
+    generate_dot_ag(arv);
 }
 
 TAG * c_inserir(TAG * arv)
@@ -267,14 +268,14 @@ int main (int argc, char *argv[] ){
         printf("Escoga una de las opcoes abaxo.\n");
         printf(">-------------------------------Operacoes do arvore--------------------------------------------- < \n");
         printf("(1) buscar figuras geométricas, por meio de um código único < \n");
-        printf("(2) imprimir informações relevantes, tanto da árvore, quanto das figuras, incluindo-se sua área < \n"); 
+        printf("(2) imprimir informações relevantes, tanto da árvore, quanto das figuras, incluindo-se sua área e generacao do grafico dot< \n"); 
         printf("(3) inserir novas figuras < \n"); 
         printf("(4) retirar figuras, passando seus descendentes para outro pai < \n");
         printf("(5) destruir a árvore < \n");
         printf("(6) alterar as dimensões de figuras < \n");
         printf(">-------------------------------Transformacoes-------------------------------------------------- < \n");
-        printf("(7) transformar a árvore genérica numa árvore binária de busca balanceada, baseando-se no código único < \n");
-        printf("(8) converter a árvore genérica numa árvore B, baseando-se no código único < \n");
+        printf("(7) transformar a árvore genérica numa árvore binária de busca balanceada, baseando-se no código único e generacao do grafico dot< \n");
+        printf("(8) converter a árvore genérica numa árvore B, baseando-se no código único e generacao do grafico dot < \n");
         printf("(-1) SAIR DO SISTEMA < \n >");
 
         scanf("%i", &num);
