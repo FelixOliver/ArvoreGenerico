@@ -802,7 +802,7 @@ void generate_dot_ag(TAG * ag){
     fprintf(fp,"%s", "|dados:");
     for(int i=0;i<ag->info->size_d;i++) fprintf(fp," %d",ag->info->dados[i]);
     fprintf(fp,"|area: %f", ag->info->area);
-    fputs("}|{<f> filho|<i>irmao}}\"];\n",fp);
+    fputs("}}\"];\n",fp);
     
    
 
