@@ -146,6 +146,38 @@ void imprime_avl(no *a){
   imprime_aux(a, 1);
 }
 
+void print_nodo(no * a, FILE * fptr)
+{
+  if(a==NULL) return;
+  else
+     fprintf(fptr, "\"%d\" [ label= \" <f0>esq | <f1> %d | <f2>dir \" , shape=Mrecord]",a->info, a->info );
+  print_nodo(a->esq, fptr);
+  if(a->esq != NULL)
+    fprintf(fptr, "\"%d\":f0 -> \"%d\" ", a->info, a->esq->info);
+  print_nodo(a->dir, fptr);
+  if(a->dir != NULL)
+    fprintf(fptr, "\"%d\":f2 -> \"%d\" ", a->info, a->dir->info);
+}
+
+void print_dot(no *a)
+{
+  //fname = "tree.dot";
+  FILE * fptr;
+  fptr = fopen("tree.dot","w");
+
+  fprintf(fptr, "digraph G{ \n");
+
+  fprintf(fptr, "\"%d\" [ label= \" <f0>esq | <f1> %d | <f2>dir \" , shape=Mrecord]",a->info, a->info );
+
+  print_nodo(a, fptr);
+
+  fprintf(fptr, " } \n");
+  fclose(fptr);
+
+  system("dot -Tpdf tree.dot -o tree.pdf");
+  system("evince tree.pdf");
+}
+
 
 no * retira_abb(int x, no *T){       
     no *p;
@@ -243,6 +275,50 @@ TAB *Libera(TAB *a){
   }
 }
 
+void print_nodo(no * a, FILE * fptr)
+{
+  if(a==NULL) return;
+  else
+     fprintf(fptr, "\"%d\" [ label= \" <f0>esq | <f1> %d | <f2>dir \" , shape=Mrecord]",a->info, a->info );
+  print_nodo(a->esq, fptr);
+  if(a->esq != NULL)
+    fprintf(fptr, "\"%d\":f0 -> \"%d\" ", a->info, a->esq->info);
+  print_nodo(a->dir, fptr);
+  if(a->dir != NULL)
+    fprintf(fptr, "\"%d\":f2 -> \"%d\" ", a->info, a->dir->info);
+}
+
+void print_dot(no *a)
+{
+  //fname = "tree.dot";
+  FILE * fptr;
+  fptr = fopen("tree.dot","w");
+
+  fprintf(fptr, "digraph G{ \n");
+
+  fprintf(fptr, "\"%d\" [ label= \" <f0>esq | <f1> %d | <f2>dir \" , shape=Mrecord]",a->info, a->info );
+
+  print_nodo(a, fptr);
+
+  fprintf(fptr, " } \n");
+  fclose(fptr);
+
+  system("dot -Tpdf tree.dot -o tree.pdf");
+  system("evince tree.pdf");
+}
+
+void Imprime(TAB *a, int andar){
+  if(a){
+    int i,j;
+    //printf("enter imprime \n");
+    for(i=0; i<=a->nchaves-1; i++){
+      Imprime(a->filho[i],andar+1);
+      for(j=0; j<=andar; j++) printf("   ");
+      printf("%d\n", a->chave[i].chave);
+    }
+    Imprime(a->filho[i],andar+1);
+  }
+}
 
 void Imprime(TAB *a, int andar){
   if(a){
@@ -605,6 +681,9 @@ void create_and_print_avl(TAG * ag){
         struct no * arvore=create_avl(ag);
         printf("Arvore de Busqueda Balanceado Criado!!!\n");
         imprime_aux(arvore,1);
+        
+        print_dot(arvore);
+
         libera(arvore);
         printf("Arvore de Busqueda Balanceado Liberado!!!\n");
     }
