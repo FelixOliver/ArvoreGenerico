@@ -307,7 +307,7 @@ TAB *Insere_Nao_Completo(TAB *x, int k, int t,TINF *info){
   
   
   int i = x->nchaves-1;
-  printf("i %d\n",i);
+  //printf("i %d\n",i);
   if(x->folha){
     while((i>=0) && (k<x->chave[i].chave)){
       x->chave[i+1].chave = x->chave[i].chave;
@@ -346,8 +346,8 @@ TAB *Insere(TAB *T, int k, int t,TINF * info){
     T->chave[0].chave = k;
     T->chave[0].info=info;
     T->nchaves=1;
-    printf("Base Case!!!\n");
-    printf("chave[0].chave %d chave[0].info %p\n",T->chave[0].chave,T->chave[0].info);
+    //printf("Base Case!!!\n");
+    //printf("chave[0].chave %d chave[0].info %p\n",T->chave[0].chave,T->chave[0].info);
     return T;
   }
   if(T->nchaves == (2*t)-1){
@@ -538,7 +538,7 @@ int vazia(TP* p){
 }
 
 void push(TP* p, TAG * x){
-    printf("push %d \n",x->cod);
+    //printf("push %d \n",x->cod);
     TNO* novo=(TNO *) malloc(sizeof(TNO));
     novo->info=x;
     novo->prox=p->prim;
@@ -549,7 +549,7 @@ TAG * pop(TP* p){
     
     if(vazia(p)) exit(1);
     TAG * resp=p->prim->info;
-    printf("pop %d \n",resp->cod);
+    //printf("pop %d \n",resp->cod);
     TNO * q =p->prim;
     p->prim=q->prox;
     free(q);
@@ -640,7 +640,7 @@ TAB* create_b(TAG * ag){
             }
         }
     }
-    printf("end stack \n");
+    //printf("end stack \n");
     //Imprime(arvore,0);
     return arvore;
     //TAB * arvore = Inicializa();
