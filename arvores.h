@@ -275,7 +275,23 @@ TAB *Libera(TAB *a){
   }
 }
 
-void print_nodo(no * a, FILE * fptr)
+
+
+void Imprime(TAB *a, int andar){
+  if(a){
+    int i,j;
+    //printf("enter imprime \n");
+    for(i=0; i<=a->nchaves-1; i++){
+      Imprime(a->filho[i],andar+1);
+      for(j=0; j<=andar; j++) printf("   ");
+      printf("%d\n", a->chave[i].chave);
+    }
+    Imprime(a->filho[i],andar+1);
+  }
+}
+
+/*
+void print_nodo_B(TAB * a, FILE * fptr)
 {
   if(a==NULL) return;
   else
@@ -287,51 +303,64 @@ void print_nodo(no * a, FILE * fptr)
   if(a->dir != NULL)
     fprintf(fptr, "\"%d\":f2 -> \"%d\" ", a->info, a->dir->info);
 }
+*/
 
-void print_dot(no *a)
+void write_noB(TAB *a, FILE * fptr)
+{
+  int i;
+  fprintf(fptr, "\"M%p\" [ label= \" <f%d> |" , a, 0);
+   
+  for ( i = 0; i < a->nchaves -1 ; i++)
+  {
+
+    fprintf(fptr, "<f%d> %d | <f%d>  | " , -(i+1), a->chave[i].chave , i+1);
+  } 
+
+  fprintf(fptr, "<f%d> %d | <f%d> \" , shape=Mrecord]",-(i+1) ,a->chave[i].chave, i+1);
+}
+
+void print_noB(TAB *a, FILE * fptr){
+  if(a){
+    int i,j;
+    //printf("enter imprime \n");
+    // escribire nó
+    write_noB(a, fptr);
+    
+    for(i=0; i<=a->nchaves-1; i++){
+      
+      print_noB(a->filho[i], fptr);
+      
+      //for(j=0; j<=andar; j++) 
+      //  printf("   ");
+      //fprintf("%d\n", a->chave[i].chave);
+      if(a->filho[i]!=NULL)
+        fprintf(fptr ,"\"M%p\":f%d -> \"M%p\":f%d ",a , i, a->filho[i], 0);
+
+    }
+    print_noB(a->filho[i], fptr);
+    if(a->filho[i]!=NULL)
+      fprintf(fptr ,"\"M%p\":f%d -> \"M%p\":f%d ",a , i, a->filho[i], 0);
+  }
+}
+
+void print_dot_B(TAB *a)
 {
   //fname = "tree.dot";
   FILE * fptr;
-  fptr = fopen("tree.dot","w");
+  fptr = fopen("treeB.dot","w");
 
   fprintf(fptr, "digraph G{ \n");
 
-  fprintf(fptr, "\"%d\" [ label= \" <f0>esq | <f1> %d | <f2>dir \" , shape=Mrecord]",a->info, a->info );
-
-  print_nodo(a, fptr);
-
+  print_noB(a, fptr);
+  
+  //print_no_B();
   fprintf(fptr, " } \n");
   fclose(fptr);
 
-  system("dot -Tpdf tree.dot -o tree.pdf");
-  system("evince tree.pdf");
+  system("dot -Tpdf treeB.dot -o treeB.pdf");
+  system("evince treeB.pdf");
 }
 
-void Imprime(TAB *a, int andar){
-  if(a){
-    int i,j;
-    //printf("enter imprime \n");
-    for(i=0; i<=a->nchaves-1; i++){
-      Imprime(a->filho[i],andar+1);
-      for(j=0; j<=andar; j++) printf("   ");
-      printf("%d\n", a->chave[i].chave);
-    }
-    Imprime(a->filho[i],andar+1);
-  }
-}
-
-void Imprime(TAB *a, int andar){
-  if(a){
-    int i,j;
-    //printf("enter imprime \n");
-    for(i=0; i<=a->nchaves-1; i++){
-      Imprime(a->filho[i],andar+1);
-      for(j=0; j<=andar; j++) printf("   ");
-      printf("%d\n", a->chave[i].chave);
-    }
-    Imprime(a->filho[i],andar+1);
-  }
-}
 
 
 TAB *Busca(TAB* x, int ch){
@@ -740,7 +769,11 @@ void create_and_print_b(TAG * ag){
         TAB * arvore=create_b(ag);
         printf("Arvore B Criado!!!\n");
         Imprime(arvore,0);
+        
+        print_dot_B(arvore);
         //libera(arvore);
         printf("Arvore B Liberado!!!\n");
+
+
     }
 }
