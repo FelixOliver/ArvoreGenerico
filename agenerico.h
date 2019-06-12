@@ -289,16 +289,6 @@ TAG * buscar_pelo_codigo(TAG * arv, int cod){
     return NULL;
 }
 
-//return pai *
-
-TAG * get_pai(TAG * arv, TAG * filho)
-{   // no existe arv, no existo filho, arv no tiene filjho, cuando filho = arv ,,
-    //if(arv == NULL || filho == NULL || arv->filho == NULL || arv->cod == filho->cod) return NULL;
-    
-
-}
-
-
 //(f) alterar as dimensões de figuras;
 
 void alterar_dimensoes(TAG * no, int * dados)
@@ -315,84 +305,6 @@ void alterar_dimensoes(TAG * no, int * dados)
     return;    
 }
 
-void menu_alterar_dimensoes(TAG * arv)
-{
-    int cod;
-    printf("(f)Alterar dimensoes \n Escriba codigo do figurinha: ");
-    scanf("%d", &cod);
-    // buscar no
-    printf("cod: %d\n",cod);
-    
-    TAG * aux = buscar_pelo_codigo(arv, cod);
-
-    printf("prueba %d \n", aux->cod);
-    print_figurinha(aux);
-
-    int * dados;
-    if(strcmp(aux->info->tipo, "CIR") == 0){
-        printf("seu figurinha é %s \n", aux->info->tipo);
-        printf("escriva novas dimensoes \n");
-        dados = (int *) malloc(sizeof(int) * aux->info->size_d);
-        
-        printf("radio: ");
-        scanf("%d", &dados[0]);
-
-        aux->info->area = M_PI * powf(dados[0], 2.0);
-    }
-    if(strcmp(aux->info->tipo, "QUA") == 0){
-        printf("seu figurinha é %s \n", aux->info->tipo);
-        printf("escriva novas dimensoes \n");
-        dados = (int *) malloc(sizeof(int) * aux->info->size_d);
-        
-        printf("lado: \n");
-        scanf("%d", &dados[0]);
-
-        aux->info->area = powf(dados[0], 2.0);           
-    }
-    if(strcmp(aux->info->tipo, "RET") == 0){
-        printf("seu figurinha é %s \n", aux->info->tipo);
-        printf("escriva novas dimensoes \n");
-        dados = (int *) malloc(sizeof(int) * aux->info->size_d);
-        
-        printf("base: ");
-        scanf("%d", &dados[0]); 
-        printf("altura: ");
-        scanf("%d", &dados[1]);
-
-        aux->info->area = dados[0] * dados[1];
-    }
-    if(strcmp(aux->info->tipo, "TRA") == 0){
-        printf("seu figurinha é %s \n", aux->info->tipo);
-        printf("escriva novas dimensoes \n");
-        dados = (int *) malloc(sizeof(int) * aux->info->size_d);
-        
-        printf("base menor: ");
-        scanf("%d", &dados[0]);
-        printf("base mayor: ");
-        scanf("%d", &dados[1]);
-        printf("altura: ");
-        scanf("%d", &dados[2]);
-
-        aux->info->area = (dados[1] + dados[0]) * dados[2] / 2.0 ;
-        
-    }
-    if(strcmp(aux->info->tipo, "TRI") == 0){
-        printf("seu figurinha é %s \n", aux->info->tipo);
-        printf("escriva novas dimensoes \n");
-        dados = (int *) malloc(sizeof(int) * aux->info->size_d);
-        
-        printf("base: ");
-        scanf("%d", &dados[0]); 
-        printf("altura: ");
-        scanf("%d", &dados[1]);
-
-        aux->info->area = dados[0] * dados[1];
-    }
-    alterar_dimensoes(aux, dados);
-
-    print_figurinha(aux);
-    return;
-}
 
 ///////////////////
 
@@ -423,12 +335,12 @@ TAG * retirar_figura(TAG * arv,int cod, TAG * pai)
         // trocar do pai
         //aux = buscar_pelo_codigo(pai);//buscar novo pai
         
-        printf("primer if\n");
-        print_figurinha(pai);
+        //printf("primer if\n");
+        //print_figurinha(pai);
         
         if(pai->filho != NULL)
         {   
-            printf("primer if 1\n");
+            //printf("primer if 1\n");
             aux = pai->filho;
             while (aux->prox_irmao != NULL ){
                 aux = aux->prox_irmao;
@@ -437,9 +349,9 @@ TAG * retirar_figura(TAG * arv,int cod, TAG * pai)
             // liberar temp
             free(temp);
         }else if (pai->filho == NULL){
-            printf("primer if 2\n");
+            //printf("primer if 2\n");
             pai->filho = temp->filho;
-            print_figurinha(pai->filho);
+            //print_figurinha(pai->filho);
             // liberar temp
             free(temp);
         }
@@ -456,10 +368,10 @@ TAG * retirar_figura(TAG * arv,int cod, TAG * pai)
 
         // trocar do pai
         //aux = buscar_pelo_codigo(pai);//buscar novo pai
-        printf("segundo if\n");
-        print_figurinha(pai);
+        //printf("segundo if\n");
+        //print_figurinha(pai);
         if(pai->filho != NULL){
-            printf("segundo if 1\n");
+            //printf("segundo if 1\n");
             aux = pai->filho;
             while (aux->prox_irmao != NULL ){
                 aux = aux->prox_irmao;
@@ -469,10 +381,10 @@ TAG * retirar_figura(TAG * arv,int cod, TAG * pai)
             free(temp);
 
         }else if (pai->filho == NULL){
-            printf("segundo if 1\n");
+            //printf("segundo if 1\n");
 
             pai->filho = temp->prox_irmao;
-            print_figurinha(pai->filho);
+            //print_figurinha(pai->filho);
             // liberar temp
             free(temp);
         }
@@ -497,4 +409,3 @@ void destruir_ag(TAG * no)
     }    
     return;
 }
-

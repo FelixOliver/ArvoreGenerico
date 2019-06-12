@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "arvores.h"
+#include <ctype.h>
+
 /*
 (a) buscar figuras geométricas, por meio de um código único; < 
 (b) imprimir informações relevantes, tanto da árvore, quanto das figuras, incluindo-se sua área; < 
@@ -41,14 +43,14 @@ TAG * c_inserir(TAG * arv)
         printf("> Insere o codigo do nó: \n >");
         scanf("%d",&cod);
         aux = buscar_pelo_codigo(arv, cod);
-        if(aux==NULL){
+        if(aux==NULL && cod >0){
             TAG * aux2 = NULL;
             while (1)
             {
                 printf("> Insere o codigo do pai do nó: \n >");
                 scanf("%d",&cod_pai);
                 aux2 = buscar_pelo_codigo(arv, cod_pai);
-                if (aux2 != NULL)
+                if (aux2 != NULL && cod_pai > 0)
                 {
                     break;
                 }
@@ -58,78 +60,102 @@ TAG * c_inserir(TAG * arv)
             break;
         }
     }
-
-    printf("Insere tipo do figurinha \nOpcoes do figurinha; TRI, QUA, RET, CIR, TRA\n >");
-    char * str_t;
-    scanf("%s", str_t);
+    ////////////
+        
+    char * str_t = (char *)malloc(sizeof(char)*10);
     
-    int * dados;
-    if(strcmp(str_t, "CIR") == 0){
+    while (1)
+    {
+    
+        printf("Insere tipo do figurinha \nOpcoes do figurinha; TRI, QUA, RET, CIR, TRA\n >");
         
-        printf("escriva dimensoes \n");
-        dados = (int *) malloc(sizeof(int));
                
-        printf("radio: ");
-        scanf("%d", &dados[0]);        
-    }
-    if(strcmp(str_t, "QUA") == 0){
+        scanf("%s", str_t);       
         
-        printf("escriva dimensoes \n");
-        dados = (int *) malloc(sizeof(int));
-        
-        printf("lado: \n");
-        scanf("%d", &dados[0]);
-             
-    }
-    if(strcmp(str_t, "RET") == 0){
-        
-        printf("escriva dimensoes \n");
-        dados = (int *) malloc(sizeof(int) * 2);
-        
-        printf("base: ");
-        scanf("%d", &dados[0]); 
-        printf("altura: ");
-        scanf("%d", &dados[1]);
+        if(strcmp(str_t, "CIR") == 0){
+            
+            printf("escriva dimensoes \n");
+                        
+            int * dados;
+            dados = (int *) malloc(sizeof(int));
+            printf("radio: ");
+            scanf("%d", &dados[0]);
+            
+            arv = insere(arv, cod, cod_pai, str_t, dados);
+            
+            break;
+        }
+        else if(strcmp(str_t, "QUA") == 0){
+            
+            printf("escriva dimensoes \n");
+            
+            
+            int * dados;
+            dados = (int *) malloc(sizeof(int));
+            printf("lado: \n");
+            scanf("%d", &dados[0]);
 
-        
-    }
-    if(strcmp(str_t, "TRA") == 0){
-        
-        printf("escriva dimensoes \n");
-        dados = (int *) malloc(sizeof(int) * 3 );
-        
+            arv = insere(arv, cod, cod_pai, str_t, dados);
+                
+            break;
+        }
+        else if(strcmp(str_t, "RET") == 0){
+            
+            printf("escriva dimensoes \n");
+            
+            int * dados;
+            dados = (int *) malloc(sizeof(int) * 2);
+            printf("base: ");
+            scanf("%d", &dados[0]); 
+            printf("altura: ");
+            scanf("%d", &dados[1]);
+            
+            arv = insere(arv, cod, cod_pai, str_t, dados);                
+            
+            break;
+        }
+        else if(strcmp(str_t, "TRA") == 0){
+            
+            printf("escriva dimensoes \n");
+            
+            int * dados;
+            dados = (int *) malloc(sizeof(int) * 3 );
 
-        printf("base menor: ");
-        scanf("%d", &dados[0]);
-        printf("base mayor: ");
-        scanf("%d", &dados[1]);
-        printf("altura: ");
-        scanf("%d", &dados[2]);
+            printf("base menor: ");
+            scanf("%d", &dados[0]);
+            printf("base mayor: ");
+            scanf("%d", &dados[1]);
+            printf("altura: ");
+            scanf("%d", &dados[2]);
 
-        
-        
-    }
-    if(strcmp(str_t, "TRI") == 0){
-        
-        printf("escriva dimensoes \n");
-        dados = (int *) malloc(sizeof(int) * 2);
-        
-        printf("base: ");
-        scanf("%d", &dados[0]); 
-        printf("altura: ");
-        scanf("%d", &dados[1]);
+            arv = insere(arv, cod, cod_pai, str_t, dados);
+                 
+            break;            
+        }
+        else if(strcmp(str_t, "TRI") == 0){
+            
+            printf("escriva dimensoes \n");
+            int * dados;
+            dados = (int *) malloc(sizeof(int) * 2);            
 
+            printf("base: ");
+            scanf("%d", &dados[0]);
+            printf("altura: ");
+            scanf("%d", &dados[1]);
+                
+            arv = insere(arv, cod, cod_pai, str_t, dados);
+            break;        
+        }
         
-    }
-
-    arv = insere(arv, cod, cod_pai, str_t, dados);
+    }   
+    
     return arv;
 }
 
 TAG * d_retirar(TAG * arv)
 {
     printf(">-1------------------------------Retirar-----------------------------------------------< \n");
-    
+    printf(".Novo pai nao poder ser filho do nó para retirar \n");
     TAG * aux = NULL;
     int cod, cod_pai;
     while (1)
@@ -145,7 +171,7 @@ TAG * d_retirar(TAG * arv)
                 printf("> Insere o codigo do novo pai do nó: \n >");
                 scanf("%d",&cod_pai);
                 pai = buscar_pelo_codigo(arv, cod_pai);
-                if (pai != NULL)
+                if (pai != NULL && buscar_pelo_codigo(aux, cod_pai) == NULL )
                 {
                     arv = retirar_figura(arv, cod, pai);
                     break;
@@ -263,9 +289,10 @@ int main (int argc, char *argv[] ){
     
     arv = load_tree(arv, argv[1]);
     int num;
-
+    
     while(num != -1){
-        printf("Escoga una de las opcoes abaxo.\n");
+        printf("ESCOGA UNA DE AS OPCOES ABAXO.\n");
+        printf("SOAMENTE ACEITAMOS NUMEROS PARA OS CODIGOS.\n");
         printf(">-------------------------------Operacoes do arvore--------------------------------------------- < \n");
         printf("(1) buscar figuras geométricas, por meio de um código único < \n");
         printf("(2) imprimir informações relevantes, tanto da árvore, quanto das figuras, incluindo-se sua área e generacao do grafico dot< \n"); 
