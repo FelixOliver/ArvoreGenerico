@@ -16,19 +16,33 @@
 
 void a_buscar(TAG * arv)
 {
-    printf(">-1------------------------------Buscar---------------------------------------------< \n");
-    int cod;
-    printf("> Insere o codigo do nó: \n >");
-    scanf("%d",&cod);
-    print_figurinha(buscar_pelo_codigo(arv , cod));
+    if(arv!=NULL){
+        printf(">-1------------------------------Buscar---------------------------------------------< \n");
+        int cod;
+        printf("> Insere o codigo do nó: \n >");
+        scanf("%d",&cod);
+        print_figurinha(buscar_pelo_codigo(arv , cod));
+    }
+    else{
+        printf("######################################################\n");
+        printf("Arvore Generico nao tem dados o foi destruido!!!\n");
+        printf("######################################################\n");
+    }
 }
 
 void b_imprimir(TAG * arv)
 {
-    printf(">-1------------------------------ImprimirArvore----------------------------------------< \n");
-    print_ag(arv);
-    // falta imprimir con DOT
-    generate_dot_ag(arv);
+    if(arv!=NULL){
+        printf(">-1------------------------------ImprimirArvore----------------------------------------< \n");
+        print_ag(arv);
+        // falta imprimir con DOT
+        generate_dot_ag(arv);
+    }
+    else{
+        printf("######################################################\n");
+        printf("Arvore Generico nao tem dados o foi destruido!!!\n");
+        printf("######################################################\n");
+    }
 }
 
 TAG * c_inserir(TAG * arv)
@@ -43,7 +57,7 @@ TAG * c_inserir(TAG * arv)
         printf("> Insere o codigo do nó: \n >");
         scanf("%d",&cod);
         aux = buscar_pelo_codigo(arv, cod);
-        if(aux==NULL && cod >0){
+        if(aux==NULL && cod >0 && arv!=NULL){
             TAG * aux2 = NULL;
             while (1)
             {
@@ -57,6 +71,10 @@ TAG * c_inserir(TAG * arv)
                 
             }        
             
+            break;
+        }
+        else if(arv==NULL){
+            cod_pai=0;
             break;
         }
     }
@@ -154,130 +172,165 @@ TAG * c_inserir(TAG * arv)
 
 TAG * d_retirar(TAG * arv)
 {
-    printf(">-1------------------------------Retirar-----------------------------------------------< \n");
-    printf(".Novo pai nao poder ser filho do nó para retirar \n");
-    TAG * aux = NULL;
-    int cod, cod_pai;
-    while (1)
-    {
-        
-        printf("> Insere o codigo do nó: \n >");
-        scanf("%d",&cod);
-        aux = buscar_pelo_codigo(arv, cod);
-        if(aux!=NULL && cod > 1) // el nodo a retirar no puede ser ROOT
+    if(arv!=NULL){
+        printf(">-1------------------------------Retirar-----------------------------------------------< \n");
+        printf(".Novo pai nao poder ser filho do nó para retirar \n");
+        TAG * aux = NULL;
+        int cod, cod_pai;
+        while (1)
         {
-            TAG * pai = NULL;
-            while (1)
-            {
-                printf("> Insere o codigo do novo pai do nó: \n >");
-                scanf("%d",&cod_pai);
-                pai = buscar_pelo_codigo(arv, cod_pai);
-                if (pai != NULL && buscar_pelo_codigo(aux->filho , cod_pai) == NULL && cod_pai > 0)//novo pai nao pode ser filho do -> nos filhos a retirar
-                {
-                    arv = retirar_figura(arv, cod, pai);
-                    break;
-                }
-                
-            }        
             
-            break;
+            printf("> Insere o codigo do nó: \n >");
+            scanf("%d",&cod);
+            aux = buscar_pelo_codigo(arv, cod);
+            if(aux!=NULL && cod > 1) // el nodo a retirar no puede ser ROOT
+            {
+                TAG * pai = NULL;
+                while (1)
+                {
+                    printf("> Insere o codigo do novo pai do nó: \n >");
+                    scanf("%d",&cod_pai);
+                    pai = buscar_pelo_codigo(arv, cod_pai);
+                    if (pai != NULL && buscar_pelo_codigo(aux->filho , cod_pai) == NULL && cod_pai > 0)//novo pai nao pode ser filho do -> nos filhos a retirar
+                    {
+                        arv = retirar_figura(arv, cod, pai);
+                        break;
+                    }
+                    
+                }        
+                
+                break;
+            }
         }
+        return arv;
     }
-    return arv;
+    else{
+        printf("######################################################\n");
+        printf("Arvore Generico nao tem dados o foi destruido!!!\n");
+        printf("######################################################\n");
+        return NULL;
+
+    }
 }
 
-void e_destruir(TAG * arv)
+void e_destruir(TAG ** arv)
 {
-    printf(">-1------------------------------Destruir---------------------------------------------< \n");
-    destruir_ag(arv);
+    if(*arv!=NULL){
+        printf(">-1------------------------------Destruir---------------------------------------------< \n");
+        destruir_ag(*arv);
+        *arv=NULL;
+    }
+    else{
+        printf("######################################################\n");
+        printf("Arvore Generico nao tem dados o foi destruido!!!\n");
+        printf("######################################################\n");
+    }
+    
 }
 
 TAG * f_alterar(TAG * arv)
 {
-    printf(">-1------------------------------Alterar-----------------------------------------------< \n");
-    TAG * aux = NULL;
-    int cod;
-    while (1)
-    {
-        
-        printf("> Insere o codigo do nó: \n >");
-        scanf("%d",&cod);
-        aux = buscar_pelo_codigo(arv, cod);
-        if(aux!=NULL){
-            break;
+     if(arv!=NULL){
+        printf(">-1------------------------------Alterar-----------------------------------------------< \n");
+        TAG * aux = NULL;
+        int cod;
+        while (1)
+        {
+            
+            printf("> Insere o codigo do nó: \n >");
+            scanf("%d",&cod);
+            aux = buscar_pelo_codigo(arv, cod);
+            if(aux!=NULL){
+                break;
+            }
         }
+
+        printf("prueba %d \n", aux->cod);
+        print_figurinha(aux);
+
+        int * dados;
+        if(strcmp(aux->info->tipo, "CIR") == 0){
+            printf("seu figurinha é %s \n", aux->info->tipo);
+            printf("escriva novas dimensoes \n");
+            dados = (int *) malloc(sizeof(int) * aux->info->size_d);
+            
+            printf("radio: ");
+            scanf("%d", &dados[0]);
+
+            aux->info->area = M_PI * powf(dados[0], 2.0);
+        }
+        if(strcmp(aux->info->tipo, "QUA") == 0){
+            printf("seu figurinha é %s \n", aux->info->tipo);
+            printf("escriva novas dimensoes \n");
+            dados = (int *) malloc(sizeof(int) * aux->info->size_d);
+            
+            printf("lado: \n");
+            scanf("%d", &dados[0]);
+
+            aux->info->area = powf(dados[0], 2.0);           
+        }
+        if(strcmp(aux->info->tipo, "RET") == 0){
+            printf("seu figurinha é %s \n", aux->info->tipo);
+            printf("escriva novas dimensoes \n");
+            dados = (int *) malloc(sizeof(int) * aux->info->size_d);
+            
+            printf("base: ");
+            scanf("%d", &dados[0]); 
+            printf("altura: ");
+            scanf("%d", &dados[1]);
+
+            aux->info->area = dados[0] * dados[1];
+        }
+        if(strcmp(aux->info->tipo, "TRA") == 0){
+            printf("seu figurinha é %s \n", aux->info->tipo);
+            printf("escriva novas dimensoes \n");
+            dados = (int *) malloc(sizeof(int) * aux->info->size_d);
+            
+            printf("base menor: ");
+            scanf("%d", &dados[0]);
+            printf("base mayor: ");
+            scanf("%d", &dados[1]);
+            printf("altura: ");
+            scanf("%d", &dados[2]);
+
+            aux->info->area = (dados[1] + dados[0]) * dados[2] / 2.0 ;
+            
+        }
+        if(strcmp(aux->info->tipo, "TRI") == 0){
+            printf("seu figurinha é %s \n", aux->info->tipo);
+            printf("escriva novas dimensoes \n");
+            dados = (int *) malloc(sizeof(int) * aux->info->size_d);
+            
+            printf("base: ");
+            scanf("%d", &dados[0]); 
+            printf("altura: ");
+            scanf("%d", &dados[1]);
+
+            aux->info->area = dados[0] * dados[1];
+        }
+        alterar_dimensoes(aux, dados);
+
+        print_figurinha(aux);
+
+        return arv;
     }
-
-    printf("prueba %d \n", aux->cod);
-    print_figurinha(aux);
-
-    int * dados;
-    if(strcmp(aux->info->tipo, "CIR") == 0){
-        printf("seu figurinha é %s \n", aux->info->tipo);
-        printf("escriva novas dimensoes \n");
-        dados = (int *) malloc(sizeof(int) * aux->info->size_d);
-        
-        printf("radio: ");
-        scanf("%d", &dados[0]);
-
-        aux->info->area = M_PI * powf(dados[0], 2.0);
+    else{
+        printf("######################################################\n");
+        printf("Arvore Generico nao tem dados o foi destruido!!!\n");
+        printf("######################################################\n");
+        return NULL;
     }
-    if(strcmp(aux->info->tipo, "QUA") == 0){
-        printf("seu figurinha é %s \n", aux->info->tipo);
-        printf("escriva novas dimensoes \n");
-        dados = (int *) malloc(sizeof(int) * aux->info->size_d);
-        
-        printf("lado: \n");
-        scanf("%d", &dados[0]);
-
-        aux->info->area = powf(dados[0], 2.0);           
-    }
-    if(strcmp(aux->info->tipo, "RET") == 0){
-        printf("seu figurinha é %s \n", aux->info->tipo);
-        printf("escriva novas dimensoes \n");
-        dados = (int *) malloc(sizeof(int) * aux->info->size_d);
-        
-        printf("base: ");
-        scanf("%d", &dados[0]); 
-        printf("altura: ");
-        scanf("%d", &dados[1]);
-
-        aux->info->area = dados[0] * dados[1];
-    }
-    if(strcmp(aux->info->tipo, "TRA") == 0){
-        printf("seu figurinha é %s \n", aux->info->tipo);
-        printf("escriva novas dimensoes \n");
-        dados = (int *) malloc(sizeof(int) * aux->info->size_d);
-        
-        printf("base menor: ");
-        scanf("%d", &dados[0]);
-        printf("base mayor: ");
-        scanf("%d", &dados[1]);
-        printf("altura: ");
-        scanf("%d", &dados[2]);
-
-        aux->info->area = (dados[1] + dados[0]) * dados[2] / 2.0 ;
-        
-    }
-    if(strcmp(aux->info->tipo, "TRI") == 0){
-        printf("seu figurinha é %s \n", aux->info->tipo);
-        printf("escriva novas dimensoes \n");
-        dados = (int *) malloc(sizeof(int) * aux->info->size_d);
-        
-        printf("base: ");
-        scanf("%d", &dados[0]); 
-        printf("altura: ");
-        scanf("%d", &dados[1]);
-
-        aux->info->area = dados[0] * dados[1];
-    }
-    alterar_dimensoes(aux, dados);
-
-    print_figurinha(aux);
-
-    return arv;
 }
+/*TAG * reload_tree(){
+    char name[20];
+    printf("Insere nome de arquivo:\n");
+    scanf("%s",name);
+    printf("%s\n",name);
+    TAG * arv=NULL;
+    arv = load_tree(arv,name);
+    return arv;
 
+}*/
 int main (int argc, char *argv[] ){
     
     TAG * arv = NULL;
@@ -304,6 +357,8 @@ int main (int argc, char *argv[] ){
         printf(">-------------------------------Transformacoes-------------------------------------------------- < \n");
         printf("(7) transformar a árvore genérica numa árvore binária de busca balanceada, baseando-se no código único e generacao do grafico dot< \n");
         printf("(8) converter a árvore genérica numa árvore B, baseando-se no código único e generacao do grafico dot < \n");
+        //printf("(9) reload arvore from arquivo < \n");
+
         printf("(-1) SAIR DO SISTEMA < \n >");
 
         scanf("%i", &num);
@@ -323,7 +378,13 @@ int main (int argc, char *argv[] ){
                 arv = d_retirar(arv);
             break;
         case 5:
-                e_destruir(arv);
+                if(arv!=NULL) e_destruir(&arv);
+                else{
+                    printf("#################################\n");
+                    printf("->>>>>>arvore ja foi destruido>>>>\n");
+                    printf("#################################\n");
+
+                } 
             break;
         case 6:
                 arv = f_alterar(arv);            
@@ -336,6 +397,15 @@ int main (int argc, char *argv[] ){
                 // to -> aB
                 create_and_print_b(arv);
             break;
+        
+        /*case 9:
+                if(arv==NULL) arv=reload_tree();
+                else{
+                    printf("#################################\n");
+                    printf("->>>>>>arvore ja criado>>>>\n");
+                    printf("#################################\n");
+                }
+                break;*/
         case -1:
             destruir_ag(arv);
             return 0;
