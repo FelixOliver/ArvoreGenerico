@@ -338,6 +338,7 @@ TAG * retirar_figura(TAG * arv,int cod, TAG * pai)
         //printf("primer if\n");
         //print_figurinha(pai);
         
+        //PARA NUEVO PAI
         if(pai->filho != NULL)
         {   
             //printf("primer if 1\n");
@@ -358,6 +359,7 @@ TAG * retirar_figura(TAG * arv,int cod, TAG * pai)
         
         
     } //return rpta;
+
     rpta = retirar_figura(arv->prox_irmao, cod, pai);
     
     if(rpta!= NULL && rpta->cod == cod) //return rpta;
@@ -370,20 +372,22 @@ TAG * retirar_figura(TAG * arv,int cod, TAG * pai)
         //aux = buscar_pelo_codigo(pai);//buscar novo pai
         //printf("segundo if\n");
         //print_figurinha(pai);
+
+            //PARA NUEVO PAI
         if(pai->filho != NULL){
             //printf("segundo if 1\n");
             aux = pai->filho;
             while (aux->prox_irmao != NULL ){
                 aux = aux->prox_irmao;
             }
-            aux->prox_irmao = temp->prox_irmao;
+            aux->prox_irmao = temp->filho;//filho del q eliminare  sera nuevo hermano de los hijos de mi nuevo pai
             // liberar temp
             free(temp);
 
         }else if (pai->filho == NULL){
             //printf("segundo if 1\n");
 
-            pai->filho = temp->prox_irmao;
+            pai->filho = temp->filho;
             //print_figurinha(pai->filho);
             // liberar temp
             free(temp);

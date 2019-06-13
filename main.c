@@ -164,14 +164,15 @@ TAG * d_retirar(TAG * arv)
         printf("> Insere o codigo do nó: \n >");
         scanf("%d",&cod);
         aux = buscar_pelo_codigo(arv, cod);
-        if(aux!=NULL){
+        if(aux!=NULL && cod > 1) // el nodo a retirar no puede ser ROOT
+        {
             TAG * pai = NULL;
             while (1)
             {
                 printf("> Insere o codigo do novo pai do nó: \n >");
                 scanf("%d",&cod_pai);
                 pai = buscar_pelo_codigo(arv, cod_pai);
-                if (pai != NULL && buscar_pelo_codigo(aux, cod_pai) == NULL )
+                if (pai != NULL && buscar_pelo_codigo(aux->filho , cod_pai) == NULL && cod_pai > 0)//novo pai nao pode ser filho do -> nos filhos a retirar
                 {
                     arv = retirar_figura(arv, cod, pai);
                     break;
