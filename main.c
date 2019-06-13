@@ -17,10 +17,25 @@
 void a_buscar(TAG * arv)
 {
     printf(">-1------------------------------Buscar---------------------------------------------< \n");
+    
+    if(arv == NULL){
+        printf(">>>>>>>>>>>>>>>>>NO EXISTE ARVORE<<<<<<<<<<<<<<<\n");
+        return;
+    }
     int cod;
-    printf("> Insere o codigo do nó: \n >");
-    scanf("%d",&cod);
-    print_figurinha(buscar_pelo_codigo(arv , cod));
+    TAG * aux;
+    while (1)
+    {
+        printf("> Insere o codigo do nó: \n >");
+        scanf("%d",&cod);
+        aux = buscar_pelo_codigo(arv , cod);
+        if(aux!=NULL)
+            break;
+        if(cod == -1)return;
+    }
+
+    print_figurinha(aux);
+
 }
 
 void b_imprimir(TAG * arv)

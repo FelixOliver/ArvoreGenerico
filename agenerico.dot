@@ -1,61 +1,63 @@
 digraph G {
 rankdir=TB;
 node [shape=record];
-m0x55833590d560[label="{<k> Key: 1|{<t>tipo: TRI|dados: 3 2|area: 6.000000}}"];
-m0x55833590d650[label="{<k> chave: 2|{<t>tipo: RET|dados: 3 3|area: 9.000000}}"];
-m0x55833590d560 -> m0x55833590d650:k
-m0x55833590d740[label="{<k> chave: 3|{<t>tipo: TRA|dados: 2 3 4|area: 10.000000}}"];
-m0x55833590d560 -> m0x55833590d740:k[style=dashed, color=grey];
-m0x55833590de60[label="{<k> chave: 10|{<t>tipo: TRI|dados: 1 2|area: 2.000000}}"];
-m0x55833590d560 -> m0x55833590de60:k[style=dashed, color=grey];
-m0x55833590e520[label="{<k> chave: 16|{<t>tipo: TRI|dados: 8 15|area: 120.000000}}"];
-m0x55833590d560 -> m0x55833590e520:k[style=dashed, color=grey];
-m0x55833590eb80[label="{<k> chave: 22|{<t>tipo: TRI|dados: 15 20|area: 300.000000}}"];
-m0x55833590e520 -> m0x55833590eb80:k
-m0x55833590f390[label="{<k> chave: 30|{<t>tipo: TRI|dados: 1 2|area: 2.000000}}"];
-m0x55833590eb80 -> m0x55833590f390:k
-m0x55833590db60[label="{<k> chave: 7|{<t>tipo: TRA|dados: 1 2 3|area: 4.500000}}"];
-m0x55833590d740 -> m0x55833590db60:k
-m0x55833590e1c0[label="{<k> chave: 13|{<t>tipo: TRA|dados: 10 20 30|area: 450.000000}}"];
-m0x55833590d740 -> m0x55833590e1c0:k[style=dashed, color=grey];
-m0x55833590da70[label="{<k> chave: 6|{<t>tipo: RET|dados: 2 2|area: 4.000000}}"];
-m0x55833590d650 -> m0x55833590da70:k
-m0x55833590e0a0[label="{<k> chave: 12|{<t>tipo: RET|dados: 8 2|area: 16.000000}}"];
-m0x55833590d650 -> m0x55833590e0a0:k[style=dashed, color=grey];
-m0x55833590e760[label="{<k> chave: 18|{<t>tipo: RET|dados: 2 9|area: 18.000000}}"];
-m0x55833590d650 -> m0x55833590e760:k[style=dashed, color=grey];
-m0x55833590d980[label="{<k> chave: 5|{<t>tipo: QUA|dados: 3|area: 9.000000}}"];
-m0x55833590d650 -> m0x55833590d980:k[style=dashed, color=grey];
-m0x55833590dd40[label="{<k> chave: 9|{<t>tipo: QUA|dados: 1|area: 1.000000}}"];
-m0x55833590d650 -> m0x55833590dd40:k[style=dashed, color=grey];
-m0x55833590df80[label="{<k> chave: 11|{<t>tipo: QUA|dados: 5|area: 25.000000}}"];
-m0x55833590d650 -> m0x55833590df80:k[style=dashed, color=grey];
-m0x55833590e400[label="{<k> chave: 15|{<t>tipo: QUA|dados: 9|area: 81.000000}}"];
-m0x55833590d650 -> m0x55833590e400:k[style=dashed, color=grey];
-m0x55833590e640[label="{<k> chave: 17|{<t>tipo: QUA|dados: 7|area: 49.000000}}"];
-m0x55833590d650 -> m0x55833590e640:k[style=dashed, color=grey];
-m0x55833590ea90[label="{<k> chave: 21|{<t>tipo: QUA|dados: 15|area: 225.000000}}"];
-m0x55833590e400 -> m0x55833590ea90:k
-m0x55833590ee80[label="{<k> chave: 25|{<t>tipo: QUA|dados: 3|area: 9.000000}}"];
-m0x55833590e400 -> m0x55833590ee80:k[style=dashed, color=grey];
-m0x55833590f2a0[label="{<k> chave: 29|{<t>tipo: QUA|dados: 1|area: 1.000000}}"];
-m0x55833590ee80 -> m0x55833590f2a0:k
-m0x55833590dc50[label="{<k> chave: 8|{<t>tipo: CIR|dados: 2|area: 12.566371}}"];
-m0x55833590d980 -> m0x55833590dc50:k
-m0x55833590e2e0[label="{<k> chave: 14|{<t>tipo: CIR|dados: 50|area: 7853.981445}}"];
-m0x55833590d980 -> m0x55833590e2e0:k[style=dashed, color=grey];
-m0x55833590e880[label="{<k> chave: 19|{<t>tipo: TRA|dados: 1 10 3|area: 16.500000}}"];
-m0x55833590d980 -> m0x55833590e880:k[style=dashed, color=grey];
-m0x55833590ec70[label="{<k> chave: 23|{<t>tipo: TRA|dados: 2 3 4|area: 10.000000}}"];
-m0x55833590e880 -> m0x55833590ec70:k
-m0x55833590f090[label="{<k> chave: 27|{<t>tipo: TRA|dados: 1 2 3|area: 4.500000}}"];
-m0x55833590e880 -> m0x55833590f090:k[style=dashed, color=grey];
-m0x55833590e9a0[label="{<k> chave: 20|{<t>tipo: CIR|dados: 20|area: 1256.637085}}"];
-m0x55833590e2e0 -> m0x55833590e9a0:k
-m0x55833590ed60[label="{<k> chave: 24|{<t>tipo: CIR|dados: 4|area: 50.265484}}"];
-m0x55833590e2e0 -> m0x55833590ed60:k[style=dashed, color=grey];
-m0x55833590f1b0[label="{<k> chave: 28|{<t>tipo: CIR|dados: 2|area: 12.566371}}"];
-m0x55833590ed60 -> m0x55833590f1b0:k
-m0x55833590efa0[label="{<k> chave: 26|{<t>tipo: RET|dados: 2 2|area: 4.000000}}"];
-m0x55833590e760 -> m0x55833590efa0:k
+m0x55cd94a2b560[label="{<k> Key: 1|{<t>tipo: TRI|dados: 3 2|area: 6.000000}}"];
+m0x55cd94a2b650[label="{<k> chave: 2|{<t>tipo: RET|dados: 3 3|area: 9.000000}}"];
+m0x55cd94a2b560 -> m0x55cd94a2b650:k
+m0x55cd94a2b740[label="{<k> chave: 3|{<t>tipo: TRA|dados: 2 3 4|area: 10.000000}}"];
+m0x55cd94a2b560 -> m0x55cd94a2b740:k[style=dashed, color=grey];
+m0x55cd94a2b860[label="{<k> chave: 4|{<t>tipo: CIR|dados: 4|area: 50.265484}}"];
+m0x55cd94a2b560 -> m0x55cd94a2b860:k[style=dashed, color=grey];
+m0x55cd94a2be60[label="{<k> chave: 10|{<t>tipo: TRI|dados: 1 2|area: 2.000000}}"];
+m0x55cd94a2b560 -> m0x55cd94a2be60:k[style=dashed, color=grey];
+m0x55cd94a2c520[label="{<k> chave: 16|{<t>tipo: TRI|dados: 8 15|area: 120.000000}}"];
+m0x55cd94a2b560 -> m0x55cd94a2c520:k[style=dashed, color=grey];
+m0x55cd94a2cb80[label="{<k> chave: 22|{<t>tipo: TRI|dados: 15 20|area: 300.000000}}"];
+m0x55cd94a2c520 -> m0x55cd94a2cb80:k
+m0x55cd94a2d390[label="{<k> chave: 30|{<t>tipo: TRI|dados: 1 2|area: 2.000000}}"];
+m0x55cd94a2cb80 -> m0x55cd94a2d390:k
+m0x55cd94a2b980[label="{<k> chave: 5|{<t>tipo: QUA|dados: 3|area: 9.000000}}"];
+m0x55cd94a2b860 -> m0x55cd94a2b980:k
+m0x55cd94a2bd40[label="{<k> chave: 9|{<t>tipo: QUA|dados: 1|area: 1.000000}}"];
+m0x55cd94a2b860 -> m0x55cd94a2bd40:k[style=dashed, color=grey];
+m0x55cd94a2bf80[label="{<k> chave: 11|{<t>tipo: QUA|dados: 5|area: 25.000000}}"];
+m0x55cd94a2b860 -> m0x55cd94a2bf80:k[style=dashed, color=grey];
+m0x55cd94a2c400[label="{<k> chave: 15|{<t>tipo: QUA|dados: 9|area: 81.000000}}"];
+m0x55cd94a2b860 -> m0x55cd94a2c400:k[style=dashed, color=grey];
+m0x55cd94a2c640[label="{<k> chave: 17|{<t>tipo: QUA|dados: 7|area: 49.000000}}"];
+m0x55cd94a2b860 -> m0x55cd94a2c640:k[style=dashed, color=grey];
+m0x55cd94a2ca90[label="{<k> chave: 21|{<t>tipo: QUA|dados: 15|area: 225.000000}}"];
+m0x55cd94a2c400 -> m0x55cd94a2ca90:k
+m0x55cd94a2ce80[label="{<k> chave: 25|{<t>tipo: QUA|dados: 3|area: 9.000000}}"];
+m0x55cd94a2c400 -> m0x55cd94a2ce80:k[style=dashed, color=grey];
+m0x55cd94a2d2a0[label="{<k> chave: 29|{<t>tipo: QUA|dados: 1|area: 1.000000}}"];
+m0x55cd94a2ce80 -> m0x55cd94a2d2a0:k
+m0x55cd94a2bc50[label="{<k> chave: 8|{<t>tipo: CIR|dados: 2|area: 12.566371}}"];
+m0x55cd94a2b980 -> m0x55cd94a2bc50:k
+m0x55cd94a2c2e0[label="{<k> chave: 14|{<t>tipo: CIR|dados: 50|area: 7853.981445}}"];
+m0x55cd94a2b980 -> m0x55cd94a2c2e0:k[style=dashed, color=grey];
+m0x55cd94a2c880[label="{<k> chave: 19|{<t>tipo: TRA|dados: 1 10 3|area: 16.500000}}"];
+m0x55cd94a2b980 -> m0x55cd94a2c880:k[style=dashed, color=grey];
+m0x55cd94a2cc70[label="{<k> chave: 23|{<t>tipo: TRA|dados: 2 3 4|area: 10.000000}}"];
+m0x55cd94a2c880 -> m0x55cd94a2cc70:k
+m0x55cd94a2d090[label="{<k> chave: 27|{<t>tipo: TRA|dados: 1 2 3|area: 4.500000}}"];
+m0x55cd94a2c880 -> m0x55cd94a2d090:k[style=dashed, color=grey];
+m0x55cd94a2c9a0[label="{<k> chave: 20|{<t>tipo: CIR|dados: 20|area: 1256.637085}}"];
+m0x55cd94a2c2e0 -> m0x55cd94a2c9a0:k
+m0x55cd94a2cd60[label="{<k> chave: 24|{<t>tipo: CIR|dados: 4|area: 50.265484}}"];
+m0x55cd94a2c2e0 -> m0x55cd94a2cd60:k[style=dashed, color=grey];
+m0x55cd94a2d1b0[label="{<k> chave: 28|{<t>tipo: CIR|dados: 2|area: 12.566371}}"];
+m0x55cd94a2cd60 -> m0x55cd94a2d1b0:k
+m0x55cd94a2bb60[label="{<k> chave: 7|{<t>tipo: TRA|dados: 1 2 3|area: 4.500000}}"];
+m0x55cd94a2b740 -> m0x55cd94a2bb60:k
+m0x55cd94a2c1c0[label="{<k> chave: 13|{<t>tipo: TRA|dados: 10 20 30|area: 450.000000}}"];
+m0x55cd94a2b740 -> m0x55cd94a2c1c0:k[style=dashed, color=grey];
+m0x55cd94a2ba70[label="{<k> chave: 6|{<t>tipo: RET|dados: 2 2|area: 4.000000}}"];
+m0x55cd94a2b650 -> m0x55cd94a2ba70:k
+m0x55cd94a2c0a0[label="{<k> chave: 12|{<t>tipo: RET|dados: 8 2|area: 16.000000}}"];
+m0x55cd94a2b650 -> m0x55cd94a2c0a0:k[style=dashed, color=grey];
+m0x55cd94a2c760[label="{<k> chave: 18|{<t>tipo: RET|dados: 2 9|area: 18.000000}}"];
+m0x55cd94a2b650 -> m0x55cd94a2c760:k[style=dashed, color=grey];
+m0x55cd94a2cfa0[label="{<k> chave: 26|{<t>tipo: RET|dados: 2 2|area: 4.000000}}"];
+m0x55cd94a2c760 -> m0x55cd94a2cfa0:k
 }
