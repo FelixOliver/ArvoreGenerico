@@ -701,7 +701,9 @@ void create_and_print_avl(TAG * ag){
     //struct no * arvore = NULL;
     if(ag == NULL)
     {
-        printf("Arvore Generico nao tem dados!!!\n");
+        printf("######################################################\n");
+        printf("Arvore Generico nao tem dados o foi destruido!!!\n");
+        printf("######################################################\n");
         return;
     }
     else
@@ -757,20 +759,22 @@ TAB* create_b(TAG * ag){
 void set_ordem(int x){ t=x;}
 void create_and_print_b(TAG * ag){
     int x;
-    
-    while(1){
-      printf("Ingrese orden t de arvore (2<=t<=4) :\n");
-      scanf("%i",&x);
-      if((x>=2)&&(x<=4))  break;
-    }
-    set_ordem(x);
     if(ag == NULL)
     {
-        printf("Arvore Generico nao tem dados!!!\n");
+        printf("######################################################\n");
+        printf("Arvore Generico nao tem dados o foi destruido!!!\n");
+        printf("######################################################\n");
         return;
     }
     else
     {
+
+      while(1){
+          printf("Ingrese orden t de arvore (2<=t<=4) :\n");
+          scanf("%i",&x);
+          if((x>=2)&&(x<=4))  break;
+      }
+        set_ordem(x);
         //printf("enter else\n");
         //struct no * arvore = NULL;
         TAB * arvore=create_b(ag);

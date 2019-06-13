@@ -159,7 +159,7 @@ TAG * load_tree(TAG * tag, char * nfile){
     FILE *fptr;
     if ((fptr = fopen(nfile ,"r")) == NULL){
         printf("Error! opening file \n");
-        exit(1);
+        return NULL;
     }
     while(fgets(str,MAXCHAR,fptr) != NULL){
         //token(str);
