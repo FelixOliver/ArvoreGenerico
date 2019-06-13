@@ -1,4 +1,9 @@
 # ArvoreGenerico
+
+Alumnos:<br>
+* Felix Oliver Sumari Huayta
+* Jose Miguel Huaman Cruz
+
 Generic Tree with methods for ED
 
 Instrucoes pela execucao:
