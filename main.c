@@ -19,7 +19,9 @@ void a_buscar(TAG * arv)
     printf(">-1------------------------------Buscar---------------------------------------------< \n");
     
     if(arv == NULL){
-        printf(">>>>>>>>>>>>>>>>>NO EXISTE ARVORE<<<<<<<<<<<<<<<\n");
+        printf("######################################################\n");
+        printf("Arvore Generico nao tem dados o foi destruido!!!\n");
+        printf("######################################################\n");
         return;
     }
     int cod;
@@ -64,6 +66,9 @@ TAG * c_inserir(TAG * arv)
         
         printf("> Insere o codigo do nó: \n >");
         scanf("%d",&cod);
+        //para salir de menu////////////
+        if(cod == -1)return arv;
+        
         aux = buscar_pelo_codigo(arv, cod);
         if(aux==NULL && cod >0 && arv!=NULL){
             TAG * aux2 = NULL;
@@ -71,6 +76,9 @@ TAG * c_inserir(TAG * arv)
             {
                 printf("> Insere o codigo do pai do nó: \n >");
                 scanf("%d",&cod_pai);
+                //para salir de menu////////////
+                if(cod_pai == -1)return arv;
+                
                 aux2 = buscar_pelo_codigo(arv, cod_pai);
                 if (aux2 != NULL && cod_pai > 0)
                 {
@@ -97,7 +105,9 @@ TAG * c_inserir(TAG * arv)
         
                
         scanf("%s", str_t);       
-        
+        //para salir de menu////////////
+        if(strcmp(str_t, "-1") == 0)return arv;
+        /////////////
         if(strcmp(str_t, "CIR") == 0){
             
             printf("escriva dimensoes \n");
@@ -190,6 +200,9 @@ TAG * d_retirar(TAG * arv)
             
             printf("> Insere o codigo do nó: \n >");
             scanf("%d",&cod);
+            //para salir de menu////////////
+            if(cod == -1)return arv;
+            
             aux = buscar_pelo_codigo(arv, cod);
             if(aux!=NULL && cod > 1) // el nodo a retirar no puede ser ROOT
             {
@@ -198,6 +211,9 @@ TAG * d_retirar(TAG * arv)
                 {
                     printf("> Insere o codigo do novo pai do nó: \n >");
                     scanf("%d",&cod_pai);
+                    //para salir de menu////////////
+                    if(cod_pai == -1)return arv;
+
                     pai = buscar_pelo_codigo(arv, cod_pai);
                     if (pai != NULL && buscar_pelo_codigo(aux->filho , cod_pai) == NULL && cod_pai > 0)//novo pai nao pode ser filho do -> nos filhos a retirar
                     {
@@ -247,13 +263,16 @@ TAG * f_alterar(TAG * arv)
             
             printf("> Insere o codigo do nó: \n >");
             scanf("%d",&cod);
+            //para salir de menu////////////
+            if(cod == -1)return arv;
+
             aux = buscar_pelo_codigo(arv, cod);
             if(aux!=NULL){
                 break;
             }
         }
 
-        printf("prueba %d \n", aux->cod);
+        //printf("prueba %d \n", aux->cod);
         print_figurinha(aux);
 
         int * dados;
@@ -353,7 +372,11 @@ int main (int argc, char *argv[] ){
     int num;
     
     while(num != -1){
+        printf("###################################################################################################\n");
+        printf("##################################### SISTEMA DO ARVORE GENERICO ##################################\n");
+        printf("###################################################################################################\n");
         printf("ESCOGA UNA DE AS OPCOES ABAXO.\n");
+        //printf("COM -1 EXIT TO MENU PRINCIPAL E SAIR DO SISTEMA.\n");
         printf("SOAMENTE ACEITAMOS NUMEROS PARA OS CODIGOS.\n");
         printf(">-------------------------------Operacoes do arvore--------------------------------------------- < \n");
         printf("(1) buscar figuras geométricas, por meio de um código único < \n");
@@ -367,7 +390,7 @@ int main (int argc, char *argv[] ){
         printf("(8) converter a árvore genérica numa árvore B, baseando-se no código único e generacao do grafico dot < \n");
         //printf("(9) reload arvore from arquivo < \n");
 
-        printf("(-1) SAIR DO SISTEMA < \n >");
+        printf("(-1) SAIR DO SISTEMA E SAIR A MENU< \n >");
 
         scanf("%i", &num);
         
